@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>{{ habit.name }} – Analytics</h2>
+
+<div class="card p-4 shadow mt-4">
+    <h4>📊 Overview</h4>
+    <p><strong>Success Rate:</strong> {{ success_rate }}%</p>
+    <p><strong>Current Streak:</strong> {{ streak }} days</p>
+    <p><strong>Best Day:</strong> {{ best_day }}</p>
+    <p><strong>Total Check-ins:</strong> {{ total_checkins }}</p>
+</div>
+
+<div class="card p-4 shadow mt-4">
+    <h4>📅 Weekly Activity</h4>
+    <table class="table mt-3">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Check-ins</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for date, count in weekly_data.items %}
+            <tr>
+                <td>{{ date }}</td>
+                <td>{{ count }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<a href="/{{ habit.id }}/" class="btn btn-secondary mt-3">Back</a>
+
+{% endblock %}

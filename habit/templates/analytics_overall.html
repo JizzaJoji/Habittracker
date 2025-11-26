@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2 class="mb-4 fw-bold">📊 Analytics Dashboard</h2>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="analytics-box">
+            <div class="analytics-number">{{ total_habits }}</div>
+            <div class="analytics-label">Total Habits</div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="analytics-box">
+            <div class="analytics-number">{{ total_checkins }}</div>
+            <div class="analytics-label">Total Check-ins</div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="analytics-box">
+            {% if best_habit %}
+                <div class="analytics-number">{{ best_habit.name }}</div>
+                <div class="analytics-label">Most Check-ins</div>
+            {% else %}
+                <div class="analytics-number">—</div>
+                <div class="analytics-label">No habits yet</div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<div class="card mt-4">
+    <h4 class="card-title">📅 Weekly Activity</h4>
+    <table class="table">
+        <tr><th>Week</th><th>Check-ins</th></tr>
+        {% for w in weekly_summary %}
+        <tr>
+            <td>{{ w.week|date:"M d, Y" }}</td>
+            <td>{{ w.count }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+<div class="card mt-4">
+    <h4 class="card-title">🏷 Habit Categories</h4>
+    <table class="table">
+        <tr><th>Category</th><th>Total Habits</th></tr>
+        {% for c in category_counts %}
+        <tr>
+            <td>{{ c.category|title }}</td>
+            <td>{{ c.count }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+<a href="{% url 'index' %}" class="btn btn-secondary mt-3">Back</a>
+
+{% endblock %}

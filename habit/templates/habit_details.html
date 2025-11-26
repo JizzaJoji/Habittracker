@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="d-flex justify-content-between">
+    <h2>{{ habit.name }}</h2>
+    <div>
+        <a href="/{{ habit.id }}/edit/" class="btn btn-warning btn-sm">Edit</a>
+        <a href="/{{ habit.id }}/delete/" class="btn btn-danger btn-sm">Delete</a>
+    </div>
+</div>
+
+<p><strong>Category:</strong> {{ habit.category }}</p>
+<p><strong>Frequency:</strong> {{ habit.frequency }}</p>
+<p><strong>Streak:</strong> {{ habit.streak }} days</p>
+
+<hr>
+
+<h4>Check-ins</h4>
+
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn btn-primary btn-sm">Add Check-in</button>
+    <a href="{% url 'index' %}" class="btn btn-secondary btn-sm">Back</a>
+
+</form>
+
+<ul class="list-group mt-3">
+    {% for c in checkins %}
+    <li class="list-group-item">
+        <strong>{{ c.date }}</strong><br>
+        {{ c.note }}
+    </li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
