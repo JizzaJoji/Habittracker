@@ -76,7 +76,7 @@ def edit_habit(request, pk):
         form = HabitForm(request.POST, instance=habit)
         if form.is_valid():
             form.save()
-            return redirect("habit_detail", pk=pk)
+            return redirect("detail", pk=pk)
     else:
         form = HabitForm(instance=habit)
     return render(request, "habit_form.html", {"form": form})
